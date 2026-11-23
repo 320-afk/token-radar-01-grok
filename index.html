@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Token Radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+  <h1>Token Radar</h1>
+  <p id="subtitle" class="sub">Loading…</p>
+  <p id="formula" class="note formula"></p>
+  <section id="assumptions" class="note">
+    <h2>Assumptions</h2>
+    <p>The base multiple, growth cap, maturity window, capital tiers, and holding windows are assumptions, not official values or return promises. A row marked “records no token” has no token recorded in the snapshot. A token-recorded row carries the market’s own market cap and receives no implied value.</p>
+  </section>
+</header>
+<main>
+  <section class="filters" aria-label="Filters">
+    <label>Search <input id="q" type="search" placeholder="name, slug or chain"></label>
+    <label>Category <select id="cat"><option value="">All</option></select></label>
+    <label>Chain <select id="chain"><option value="">All</option></select></label>
+    <label>Token status <select id="status">
+      <option value="">All</option>
+      <option value="records_no_token">Records no token</option>
+      <option value="token_recorded">Token recorded</option>
+    </select></label>
+    <label>Min implied <input id="min" type="number" min="0" step="1000000" placeholder="0"></label>
+    <button id="filtered" type="button">Filtered view</button>
+    <button id="reset" type="button">Reset</button>
+    <span id="count" class="count"></span>
+  </section>
+  <p id="filter-state" class="state"></p>
+  <section id="detail" class="detail" hidden></section>
+  <table id="board">
+    <thead><tr>
+      <th data-key="rank">#</th>
+      <th data-key="name">Protocol</th>
+      <th>Category</th>
+      <th>Chain</th>
+      <th>Status</th>
+      <th data-key="tvl_usd">TVL</th>
+      <th data-key="change_7d">7d %</th>
+      <th>Model: TVL^exp × scale × growth³ × maturity</th>
+      <th data-key="implied_value_usd">Implied value</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <section id="anchors" class="anchors">
+    <h2>Market anchors — live tokens, no implied value</h2>
+    <p>Top token-recorded protocols by snapshot market cap. They are kept apart from the ranked board; the model assigns them no implied value.</p>
+    <ul id="anchors-body"></ul>
+  </section>
+</main>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
